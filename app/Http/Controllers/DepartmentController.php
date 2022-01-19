@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\department;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreDepartment;
 
 class DepartmentController extends Controller
 {
@@ -14,7 +15,9 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        //
+        $departments = department::all();
+
+        return view('department.main',compact('departments'));
     }
 
     /**
@@ -24,7 +27,7 @@ class DepartmentController extends Controller
      */
     public function create()
     {
-        //
+return view('department.create');
     }
 
     /**
@@ -33,9 +36,10 @@ class DepartmentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreDepartment $request)
     {
-        //
+        $departments = department::create($request->all());
+        return redirect()->to('/department')->with('massage','Add Department Successful');
     }
 
     /**
@@ -57,7 +61,12 @@ class DepartmentController extends Controller
      */
     public function edit(department $department)
     {
-        //
+       $departments=department::find($department->id);
+       if($departments){
+return view('department.edit', compact('department'));
+       } else {
+           return abort(401);
+       }
     }
 
     /**
@@ -67,9 +76,10 @@ class DepartmentController extends Controller
      * @param  \App\Models\department  $department
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, department $department)
+    public function update(StoreDepartment $request, department $department)
     {
-        //
+     $department->update($request->all());
+     return redirect()->to('/department')->with('massage','Department Update Information Successful');
     }
 
     /**
@@ -80,6 +90,8 @@ class DepartmentController extends Controller
      */
     public function destroy(department $department)
     {
-        //
+      $department->delete();
+      return redirect()->to('/department')->with('massage','Department Delete Information Successful');
+
     }
 }

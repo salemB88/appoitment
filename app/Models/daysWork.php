@@ -6,15 +6,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class department extends Model
+class daysWork extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    protected $fillable = ['name', 'description'];
+    protected $fillable=['day','time_start','time_end','spend_time','doctor_id'];
 
 
-    public function doctors()
-    {
-        return $this->belongsToMany(doctor::class, 'doctor_departments');
+    public function doctor(){
+        return $this->belongsTo(doctor::class);
     }
 }

@@ -100,6 +100,14 @@
                 </div>
             @endif
 
+            <div class="container">
+                @if(session()->has('massage'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <p>{{session()->get('massage')}}</p>
+                          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
+
 
 
             @yield('content')

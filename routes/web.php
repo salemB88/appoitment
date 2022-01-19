@@ -22,3 +22,7 @@ Auth::routes(['verify'=>true]);
 
 Route::get('local/{lang}','SetLocal@change_local');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::resource('doctor','DoctorController');
+
+Route::resource('department','DepartmentController');
